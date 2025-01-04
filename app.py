@@ -7,14 +7,14 @@ st.set_page_config(
     page_icon="./images/monsterball.png"
 )
 # st-emotion-cache-b95f0i
-# display: flex;
+# display: flex; TEST
 st.markdown("""
 <style>
 img { max-height: 300px;
 justify-content: center;
 }
 .st-emotion-cache-1clstc5 div{
-   
+
     justify-content: center;
     font-size: 20px;
 }
@@ -23,6 +23,11 @@ justify-content: center;
 }
 
 .st-emotion-cache-s1invk {
+    pointer-events: none;
+}
+
+.stElementToolbar {
+    visibility: hidden;
     pointer-events: none;
 }
 
@@ -53,7 +58,6 @@ type_emoji_dict = {
     "악": "😈",
     "페어리": "🧚"
 }
-
 
 initial_pokemons = [
     {
@@ -98,7 +102,6 @@ example_pokemon = {
 if "pokemons" not in st.session_state:
     st.session_state.pokemons = initial_pokemons
 
-
 auto_complete = st.toggle("예시 데이터로 채우기")
 print("page_reload, auto_complete", auto_complete)
 
@@ -107,7 +110,7 @@ with st.form(key="form"):
     with col1:
         name = st.text_input(
             label="포켓몬 이름",
-            value = example_pokemon["name"] if auto_complete else ""
+            value=example_pokemon["name"] if auto_complete else ""
         )
     with col2:
         types = st.multiselect(
@@ -140,24 +143,21 @@ with st.form(key="form"):
         # print("types", types)
         # print("image url", image_url)
 
-
-
 for i in range(0, len(st.session_state.pokemons), 3):
     ros_pokemons = st.session_state.pokemons[i:i + 3]
     cols = st.columns(3)
     for j in range(len(ros_pokemons)):
         with cols[j]:
-           pokemon = ros_pokemons[j]
-           with st.expander(label=f"**{i+j+1}. {pokemon["name"]}**", expanded=True):
+            pokemon = ros_pokemons[j]
+            with st.expander(label=f"**{i + j + 1}. {pokemon["name"]}**", expanded=True):
                 st.image(pokemon["image_url"])
                 emoji_types = [f"{type_emoji_dict[x]} {x}" for x in pokemon["types"]]
                 st.text(" / ".join(emoji_types))
-                delete_button = st.button(label="삭제", key=i+j, use_container_width=True)
+                delete_button = st.button(label="삭제", key=i + j, use_container_width=True)
                 if delete_button:
                     print("delete")
-                    del st.session_state.pokemons[i+j]
+                    del st.session_state.pokemons[i + j]
                     st.rerun()
-
 
 # cols = st.columns(3)
 # for i in range(len(pokemons)):
