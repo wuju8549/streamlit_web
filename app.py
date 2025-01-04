@@ -22,7 +22,7 @@ justify-content: center;
     visibility: hidden;
 }
 
-.stExpander{
+.st-emotion-cache-s1invk {
     pointer-events: none;
 }
 
